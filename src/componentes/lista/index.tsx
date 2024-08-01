@@ -1,34 +1,29 @@
+import React from 'react';
 import style from './style.module.scss';
-import Item from "./item";
+import ITarefa from '../../interface/tarefas';
+import Item from './item';
 
-export default function Lista() {
+interface Props {
+  tarefas: ITarefa[],
+  selecionaTarefa: (tarefaSelecionada: ITarefa) => void 
+}
 
-  const tarefas = [{
-    tarefa: 'react',
-    tempo: '02:00:00'
-  }, {
-    tarefa: 'javascript',
-    tempo: '01:00:00'
-  }, {
-    tarefa: 'C#',
-    tempo: '10:00:00'
-  }]
 
+function Lista({ tarefas, selecionaTarefa }: Props) {
   return (
     <aside className={style.listaTarefas}>
-      <h2>
-        Estudos do dia
-      </h2>
+      <h2> Estudos do dia </h2>
       <ul>
-        {
-          tarefas.map((item, index) => (
-            <Item
-              key={index}
-              {...item}
-            />
-          ))
-        }
+        {tarefas.map(item => (
+          <Item
+            selecionaTarefa={selecionaTarefa}
+            key={item.id}
+            {...item}
+          />
+        ))}
       </ul>
     </aside>
   )
 }
+
+export default Lista;
